@@ -25,16 +25,13 @@ export default styles = StyleSheet.create({
     left: 0,
   },
   loginContainer: {
-    flex: 1,
     padding: 20,
     backgroundColor: "white",
   },
-  loginForm: {
-    flex: 3,
-  },
   loginMap: {
-    flex: 2,
+    marginTop: 24,
     backgroundColor: "#2196f3",
+    height: 270,
     borderRadius: 20,
     overflow: "hidden",
     elevation: 6,
@@ -57,6 +54,16 @@ export default styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "lightgray",
+    borderRadius: 8,
+    fontSize: 16,
+    padding: 8,
+    paddingTop: 6,
+    paddingBottom: 6,
+  },
+  inputError: {
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "red",
     borderRadius: 8,
     fontSize: 16,
     padding: 8,
@@ -90,7 +97,7 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
   },
   noAccount: {
-    textAlign: "center", // <-- the magic
+    textAlign: "center",
     marginTop: 3,
   },
   registerSpan: {
@@ -100,5 +107,8 @@ export default styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+  },
+  errorMessage: {
+    color: "red",
   },
 });

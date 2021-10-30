@@ -37,6 +37,8 @@ export default styles = StyleSheet.create({
     backgroundColor: "#2196f3",
     borderRadius: 20,
     overflow: "hidden",
+    elevation: 6,
+    shadowColor: "#52006A",
   },
   headerSpecialText: {
     color: "#2196f3",
@@ -65,9 +67,26 @@ export default styles = StyleSheet.create({
     marginTop: 6,
   },
   loginButton: {
-    marginTop: 14,
+    padding: 11,
+    textAlign: "center",
+    marginTop: 10,
+    backgroundColor: "#2196f3",
     borderRadius: 8,
-    overflow: "hidden",
+  },
+  loginButtonDisabled: {
+    padding: 11,
+    textAlign: "center",
+    marginTop: 10,
+    backgroundColor: "#dfdfdf",
+    borderRadius: 8,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  loginButtonText: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    color: "white",
     fontWeight: "bold",
   },
   noAccount: {

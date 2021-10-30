@@ -1,45 +1,88 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import JWT from "expo-jwt";
 import {
   View,
   Text,
   TextInput,
-  Button,
-  PermissionsAndroid,
+  TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import MapView from "react-native-maps";
-import Geolocation from "react-native-geolocation-service";
 import styles from "../styles";
 
-export default LoginPage = ({ navigation }) => {
-  useEffect(async () => {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: "Location Auth Geolocation Permission",
-        message:
-          "Location Auth necesita permiso para acceder a tu " +
-          "ubicación para que puedas usar la app.",
-        buttonNegative: "No gracias",
-        buttonPositive: "Está bien",
+// const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY =
+  "0842160add0aa60aaa83f66bce0c9c35efd601522b16f35411965188749684b3";
+
+export default LoginPage = ({ navigation, location }) => {
+  const [email, setEmail] = useState("betuss@gmail.com");
+  const [password, setPassword] = useState("password");
+  const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (location !== null) {
+      if (locations.length >= 20) {
+        const newLocations = locations.slice(locations.length - 9);
+        newLocations.push(location);
+        setLocations(newLocations);
+      } else {
+        setLocations([...locations, location]);
       }
-    );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("SI");
-      Geolocation.getCurrentPosition(
-        (position) => {
-          console.log(position);
-        },
-        (error) => {
-          console.log(error);
-        },
-        {
-          enableHighAccuracy: true,
-        }
-      );
-    } else {
-      console.log("NO");
     }
-  }, []);
+  }, [location]);
+
+  const login = () => {
+    if (loading) return;
+    if (locations.length >= 10 && email && password) {
+      setLoading(true);
+      const locationsCopy = [...locations];
+      fetch("https://location-auth-10.uw.r.appspot.com/auth/location", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          locations: locationsCopy.map((loc) => {
+            return {
+              lat: loc.coords.latitude,
+              lon: loc.coords.longitude,
+              acc: loc.coords.accuracy,
+            };
+          }),
+        }),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          if (json.access_token) {
+            try {
+              const payload = JWT.decode(json.access_token, SECRET_KEY);
+              console.log(payload);
+              if (payload.valid_location) {
+                navigation.navigate("Home");
+              } else {
+                navigation.navigate("TOTP");
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          } else {
+            console.log("NEL KRNAL");
+            // Go to ERROR
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <View style={styles.loginContainer}>
       <View style={styles.loginForm}>
@@ -53,20 +96,44 @@ export default LoginPage = ({ navigation }) => {
         <View style={styles.formGroup}>
           <View style={styles.formGroup}>
             <Text>Email:</Text>
-            <TextInput style={styles.input}></TextInput>
+            <TextInput
+              onChangeText={(value) => {
+                setEmail(value);
+              }}
+              value={email}
+              style={styles.input}
+            ></TextInput>
           </View>
           <View style={styles.formGroup}>
             <Text>Contraseña:</Text>
-            <TextInput style={styles.input}></TextInput>
-          </View>
-          <View style={styles.loginButton}>
-            <Button
-              title="Iniciar Sesión"
-              onPress={() => {
-                console.log("safasd");
+            <TextInput
+              onChangeText={(value) => {
+                setPassword(value);
               }}
-            />
+              value={password}
+              style={styles.input}
+              secureTextEntry={true}
+              autoComplete="password"
+            ></TextInput>
           </View>
+
+          {loading ? (
+            <TouchableOpacity style={styles.loginButtonDisabled}>
+              <Text style={styles.loginButtonText}>Cargando...</Text>
+              <ActivityIndicator color="#2196f3" />
+            </TouchableOpacity>
+          ) : locations.length < 10 ? (
+            <TouchableOpacity style={styles.loginButtonDisabled}>
+              <Text style={styles.loginButtonText}>
+                Obteniendo ubicación óptima
+              </Text>
+              <ActivityIndicator color="#2196f3" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.loginButton} onPress={login}>
+              <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
+            </TouchableOpacity>
+          )}
           <View style={styles.noAccount}>
             <Text style={styles.noAccount}>
               ¿Aún no tienes cuenta?,{" "}
@@ -82,9 +149,30 @@ export default LoginPage = ({ navigation }) => {
           </View>
         </View>
       </View>
-      <View style={styles.loginMap}>
-        <MapView style={styles.map} />
-      </View>
+      {location !== null && (
+        <View style={styles.loginMap}>
+          <MapView
+            style={styles.map}
+            showsUserLocation={true}
+            showsMyLocationButton={false}
+            rotateEnabled={false}
+            pitchEnabled={false}
+            showsScale={true}
+            minZoomLevel={4}
+            maxZoomLevel={20}
+            initialCamera={{
+              center: {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+              },
+              pitch: 0,
+              zoom: 16,
+              heading: 0,
+              altitude: 0,
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 };

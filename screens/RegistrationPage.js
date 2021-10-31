@@ -71,6 +71,8 @@ export default RegistrationPage = ({ navigation, locations }) => {
               lat: loc.coords.latitude,
               lon: loc.coords.longitude,
               acc: loc.coords.accuracy,
+              speed: loc.coords.speed,
+              is_mocked: loc.mocked,
             };
           }),
           refered_by: referedBy,
@@ -81,20 +83,25 @@ export default RegistrationPage = ({ navigation, locations }) => {
           if (json.access_token) {
             try {
               const payload = JWT.decode(json.access_token, SECRET_KEY);
-              navigation.pop();
-              navigation.replace("Home", { payload: payload });
-            } catch (error) {
-              showError(error);
+              navigation.replace("Home", {
+                payload: payload,
+                location: { ...locations.pop() },
+              });
+            } catch (err) {
+              console.log(err);
+              showError("Ocurrió un error");
             }
           } else {
-            showError(json.detail);
-            setError(json.detail);
+            if (json.hasOwnProperty("detail")) {
+              showError(json.detail);
+              setError(json.detail);
+            }
           }
           setLoading(false);
         })
-        .catch((error) => {
+        .catch((err) => {
           setLoading(false);
-          console.log(error);
+          console.log(err);
         });
     }
   };

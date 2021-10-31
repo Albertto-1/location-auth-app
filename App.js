@@ -6,7 +6,9 @@ import * as Location from "expo-location";
 import LoginPage from "./screens/LoginPage";
 import RegistrationPage from "./screens/RegistrationPage";
 import HomePage from "./screens/HomePage";
+import TOTPPage from "./screens/TOTPPage";
 import ApplicationHeader from "./components/ApplicationHeader";
+import InstructionsPage from "./screens/InstructionsPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -90,6 +92,26 @@ export default function App() {
           {(props) => (
             <HomePage {...props} location={location} locations={locations} />
           )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="TOTP"
+          options={{
+            title: "Login con TOTP",
+            ...headerExtraOptions,
+            animation: "slide_from_right",
+          }}
+        >
+          {(props) => <TOTPPage {...props} locations={locations} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="Instructions"
+          options={{
+            title: "Instrucciones",
+            ...headerExtraOptions,
+            animation: "slide_from_right",
+          }}
+        >
+          {(props) => <InstructionsPage {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

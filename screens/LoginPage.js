@@ -42,6 +42,8 @@ export default LoginPage = ({ navigation, location, locations }) => {
               lat: loc.coords.latitude,
               lon: loc.coords.longitude,
               acc: loc.coords.accuracy,
+              speed: loc.coords.speed,
+              is_mocked: loc.mocked,
             };
           }),
         }),
@@ -52,13 +54,17 @@ export default LoginPage = ({ navigation, location, locations }) => {
             try {
               AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
-              if (payload.valid_location) {
-                navigation.replace("Home", { payload: payload });
+              if (payload.trusted_location) {
+                navigation.replace("Home", {
+                  payload: payload,
+                  location: { ...location },
+                });
               } else {
                 navigation.navigate("TOTP", { payload: payload });
               }
-            } catch (error) {
-              showError(error);
+            } catch (err) {
+              console.log(err);
+              showError(err);
             }
           } else {
             showError(json.detail);
@@ -66,9 +72,9 @@ export default LoginPage = ({ navigation, location, locations }) => {
           }
           setLoading(false);
         })
-        .catch((error) => {
+        .catch((err) => {
           setLoading(false);
-          console.log(error);
+          console.log(err);
         });
     }
   };

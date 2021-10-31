@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MapView, { Marker } from "react-native-maps";
 import * as Icons from "react-native-heroicons/solid";
 import styles from "../styles";
 import AfterLoginForm from "../components/AfterLoginForm";
 
-export default HomePage = ({ navigation, route, location }) => {
+export default HomePage = ({ navigation, route }) => {
   const [userInfo, setUserInfo] = useState({});
+  const [payload, setPayload] = useState(false);
+  const [location, setLocation] = useState({});
   const [loading, setLoading] = useState(false);
-  const [locationSuccess, setLocationSuccess] = useState(true);
 
   const [alreadySent, setAlreadySent] = useState(false);
 
@@ -34,33 +28,96 @@ export default HomePage = ({ navigation, route, location }) => {
       .then((response) => response.json())
       .then(async (json) => {
         if (json.id) {
-          console.log(json);
           setUserInfo(json);
         } else {
           showError(json.detail);
         }
         setLoading(false);
       })
-      .catch((error) => {
+      .catch((err) => {
         setLoading(false);
-        console.log(error);
+        console.log(err);
       });
-    const payload = route.params.payload;
-    if (!payload.hasOwnProperty("valid_location")) {
-      setLocationSuccess(false);
-    }
+    setPayload(route.params.payload);
+    setLocation(route.params.location);
   }, []);
 
   const getGreetings = () => {
+    const trustedLocation = payload.hasOwnProperty("trusted_location")
+      ? payload.trusted_location
+      : null;
+    const newLocation = payload.hasOwnProperty("new_location")
+      ? payload.new_location
+      : null;
+    const backError = payload.hasOwnProperty("error") ? payload.error : "";
+    const base32secret = payload.hasOwnProperty("base32secret")
+      ? payload.base32secret
+      : null;
+
+    let message;
+    if (trustedLocation !== null && trustedLocation) {
+      message = "Estás en una ubicación confiable.";
+      // In this point there is no else (TOTP path)
+    } else if (newLocation) {
+      if (base32secret) {
+        message =
+          "Se guardó tu primera ubicación confiable con éxito. Podrás iniciar sesión rápido siempre que estés en este lugar (casa, oficina).";
+      } else {
+        message =
+          "¡Listo! Ya no te volveremos a pedir código cuando estés en esta ubicación. Estás en un lugar nuevo (casa, oficina...)? o fue error del sistema?";
+      }
+    } else {
+      message = "No logramos guardar tu ubicación. " + backError;
+    }
+
+    const goToTOTPInstructions = () => {
+      navigation.navigate("Instructions", {
+        whichOne: "totp",
+        code: payload.hasOwnProperty("base32secret")
+          ? payload.base32secret
+          : userInfo.totp_secret,
+      });
+    };
+
     return (
-      <View style={styles.card}>
-        <Text style={styles.homeTitle}>
-          Tu inicio de sesión con ubicación{" "}
-          <Text style={styles.homeSpecialText}>
-            {locationSuccess ? "fue" : "NO fue"} exitoso
-          </Text>
-        </Text>
-      </View>
+      <>
+        {base32secret && (
+          <View style={styles.card}>
+            <Text
+              style={{
+                ...styles.headerSpecialText,
+                ...styles.homeTitle,
+                ...styles.important,
+              }}
+            >
+              Importante:
+            </Text>
+            <Text
+              style={{
+                ...styles.headerSpecialText,
+                ...styles.homeTitle,
+                ...styles.important,
+                ...styles.smallerText,
+              }}
+            >
+              Esta tarjeta no se volverá a mostrar.
+            </Text>
+            <Text style={{ ...styles.homeTitle, ...styles.smallerText }}>
+              Sigue estas{" "}
+              <Text
+                style={{ ...styles.headerSpecialText }}
+                onPress={goToTOTPInstructions}
+              >
+                instrucciones {"->"}
+              </Text>{" "}
+              para configurar Google Authenticator.
+            </Text>
+          </View>
+        )}
+        <View style={styles.card}>
+          <Text>{message}</Text>
+        </View>
+      </>
     );
   };
 

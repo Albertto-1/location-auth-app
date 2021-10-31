@@ -223,4 +223,32 @@ export default styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
+  important: {
+    color: "#f0ad4e",
+  },
+  smallerText: {
+    fontSize: 18,
+  },
+  instructions: {
+    fontSize: 16,
+    marginTop: 4,
+  },
+  clipboardCode: {
+    fontSize: 18,
+    fontStyle: "italic",
+    color: "#999999",
+  },
+  clipboard: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#dddddd",
+    backgroundColor: "#eeeeee",
+    borderRadius: 8,
+    marginTop: 20,
+    padding: 8,
+  },
 });

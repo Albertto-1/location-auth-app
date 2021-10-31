@@ -81,13 +81,16 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen
           name="Home"
-          component={HomePage}
           options={{
             title: "Location Auth",
             ...headerExtraOptions,
             headerBackVisible: false,
           }}
-        />
+        >
+          {(props) => (
+            <HomePage {...props} location={location} locations={locations} />
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

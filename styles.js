@@ -111,4 +111,116 @@ export default styles = StyleSheet.create({
   errorMessage: {
     color: "red",
   },
+  homeTitle: {
+    fontSize: 20,
+    textAlign: "center",
+  },
+  homeSpecialText: {
+    fontWeight: "bold",
+  },
+  smallMarginTop: {
+    marginTop: 4,
+  },
+  mediumPaddingTop: {
+    paddingTop: 12,
+  },
+  mediumMarginTop: {
+    marginTop: 16,
+  },
+  smallMarginLeft: {
+    marginLeft: 6,
+  },
+  mapLegend: {
+    marginTop: 20,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mapLegendText: {
+    marginLeft: 6,
+    marginTop: 4,
+    fontSize: 16,
+  },
+  card: {
+    padding: 17,
+    marginTop: 10,
+    backgroundColor: "white",
+    borderRadius: 20,
+    overflow: "hidden",
+    elevation: 6,
+    shadowColor: "#52006A",
+  },
+  questionRow: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  question: {
+    width: "66%",
+    textAlign: "justify",
+  },
+  answer: {
+    width: "30%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    // borderColor: "lightgray",
+    borderColor: "#f0ad4e",
+    borderRadius: 8,
+    // flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 36,
+    overflow: "hidden",
+  },
+  yes: {
+    flex: 1,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderStyle: "solid",
+    borderRightWidth: 1,
+    // borderRightColor: "lightgray",
+    borderRightColor: "#f0ad4e",
+  },
+  no: {
+    flex: 1,
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  active: {
+    backgroundColor: "#f0ad4e",
+  },
+  activeText: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  normalText: {
+    color: "gray",
+  },
+  pinIcon: {
+    marginLeft: 8,
+    marginRight: 8,
+  },
+  formButton: {
+    padding: 7,
+    textAlign: "center",
+    marginTop: 18,
+    backgroundColor: "#f0ad4e",
+    borderRadius: 8,
+  },
+  formButtonDisabled: {
+    padding: 11,
+    textAlign: "center",
+    marginTop: 10,
+    backgroundColor: "#dfdfdf",
+    borderRadius: 8,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
 });

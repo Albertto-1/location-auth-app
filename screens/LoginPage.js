@@ -13,10 +13,11 @@ import MapView from "react-native-maps";
 import styles from "../styles";
 import { showError } from "../utils/toast";
 import { SECRET_KEY } from "../utils/config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default LoginPage = ({ navigation, location, locations }) => {
   const [email, setEmail] = useState("alberto@gmail.com");
-  const [password, setPassword] = useState("abs123A*");
+  const [password, setPassword] = useState("abc123A*");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -46,9 +47,10 @@ export default LoginPage = ({ navigation, location, locations }) => {
         }),
       })
         .then((response) => response.json())
-        .then((json) => {
+        .then(async (json) => {
           if (json.access_token) {
             try {
+              AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               if (payload.valid_location) {
                 navigation.replace("Home", { payload: payload });

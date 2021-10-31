@@ -43,7 +43,7 @@ export default function App() {
         distanceInterval: 0,
       },
       (newLoc) => {
-        if (newLoc !== null && isMounted) {
+        if (newLoc !== null && isMounted && newLoc.coords.accuracy < 50) {
           locs.push(newLoc);
           if (locs.length > 10) {
             locs = locs.slice(locs.length - 10);

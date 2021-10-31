@@ -82,6 +82,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
         .then((json) => {
           if (json.access_token) {
             try {
+              setLoading(false);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.replace("Home", {
                 payload: payload,
@@ -90,14 +91,15 @@ export default RegistrationPage = ({ navigation, locations }) => {
             } catch (err) {
               console.log(err);
               showError("Ocurrió un error");
+              setLoading(false);
             }
           } else {
+            setLoading(false);
             if (json.hasOwnProperty("detail")) {
               showError(json.detail);
               setError(json.detail);
             }
           }
-          setLoading(false);
         })
         .catch((err) => {
           setLoading(false);

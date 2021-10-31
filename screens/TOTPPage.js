@@ -53,6 +53,7 @@ export default TOTPPage = ({ navigation, route, locations }) => {
         .then(async (json) => {
           if (json.access_token) {
             try {
+              setLoading(false);
               AsyncStorage.setItem("access_token", json.access_token);
               const newPayload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.replace("Home", {
@@ -62,12 +63,13 @@ export default TOTPPage = ({ navigation, route, locations }) => {
             } catch (err) {
               setError(err);
               showError(err);
+              setLoading(false);
             }
           } else {
             showError(json.detail);
             setError(json.detail);
+            setLoading(false);
           }
-          setLoading(false);
         })
         .catch((err) => {
           setLoading(false);

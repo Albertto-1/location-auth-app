@@ -33,27 +33,29 @@ export default function App() {
       return;
     }
 
+    let isMounted = true;
     let locs = [];
 
-    const locationWatcher = Location.watchPositionAsync(
+    const positionWatcher = Location.watchPositionAsync(
       {
         accuracy: Location.Accuracy.Highest,
         timeInterval: 500,
         distanceInterval: 0,
       },
       (newLoc) => {
-        if (newLoc !== null) {
+        if (newLoc !== null && isMounted) {
           locs.push(newLoc);
           if (locs.length > 20) {
             locs = locs.slice(locs.length - 10);
           }
-          setLocation(newLoc);
-          setLocations(locs);
+          setLocation({ ...newLoc });
+          setLocations([...locs]);
         }
       }
     );
     return () => {
-      locationWatcher.remove();
+      isMounted = false;
+      positionWatcher.remove();
     };
   }, []);
 

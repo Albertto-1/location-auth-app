@@ -75,7 +75,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
               is_mocked: loc.mocked,
             };
           }),
-          refered_by: referedBy,
+          refered_by: referedBy || "",
         }),
       })
         .then((response) => response.json())
@@ -84,6 +84,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
             try {
               setLoading(false);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
+              navigation.pop();
               navigation.replace("Home", {
                 payload: payload,
                 location: { ...locations.pop() },

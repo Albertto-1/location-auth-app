@@ -45,7 +45,7 @@ export default function App() {
       (newLoc) => {
         if (newLoc !== null && isMounted) {
           locs.push(newLoc);
-          if (locs.length > 20) {
+          if (locs.length > 10) {
             locs = locs.slice(locs.length - 10);
           }
           setLocation({ ...newLoc });

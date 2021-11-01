@@ -232,7 +232,7 @@ export default styles = StyleSheet.create({
   },
   instructions: {
     fontSize: 16,
-    marginTop: 4,
+    marginTop: 6,
   },
   clipboardCode: {
     fontSize: 18,
@@ -249,7 +249,8 @@ export default styles = StyleSheet.create({
     borderColor: "#dddddd",
     backgroundColor: "#eeeeee",
     borderRadius: 8,
-    marginTop: 20,
+    marginTop: 14,
+    marginBottom: 14,
     padding: 8,
   },
   reward: {

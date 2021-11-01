@@ -61,12 +61,6 @@ export default TOTPInstructions = ({ totpSecret }) => {
         </Text>{" "}
         En "Clave secreta" copia y pega el código de abajo.
       </Text>
-      <Text style={{ ...styles.headerText, ...styles.instructions }}>
-        <Text style={{ ...styles.headerSpecialText, ...styles.important }}>
-          8.{" "}
-        </Text>{" "}
-        Da clic en "FINALIZAR"
-      </Text>
 
       <TouchableOpacity
         style={styles.clipboard}
@@ -78,6 +72,27 @@ export default TOTPInstructions = ({ totpSecret }) => {
         <Text style={styles.clipboardCode}>{totpSecret}</Text>
         <Icons.ClipboardIcon fill="#bbbbbb" size={36} />
       </TouchableOpacity>
+
+      <Text style={{ ...styles.headerText, ...styles.instructions }}>
+        <Text style={{ ...styles.headerSpecialText, ...styles.important }}>
+          8.{" "}
+        </Text>{" "}
+        Da clic en "FINALIZAR"
+      </Text>
+      <Text
+        style={{
+          ...styles.headerText,
+          ...styles.instructions,
+          ...styles.mediumMarginTop,
+        }}
+      >
+        <Text style={{ ...styles.headerSpecialText, ...styles.important }}>
+          Nota:{" "}
+        </Text>{" "}
+        Cuando el sistema no pueda iniciar sesión usando tu ubicación te pedirá
+        tu código TOTP. Este lo puedes consultar en Google Authenticator bajo el
+        nombre que registraste en el paso #6.
+      </Text>
     </View>
   );
 };

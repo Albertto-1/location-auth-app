@@ -230,6 +230,16 @@ export default HomePage = ({ navigation, route }) => {
                   instrucciones de TOTP {" ->"}
                 </Text>
               </Text>
+              <Text
+                style={{
+                  ...styles.mediumMarginTop,
+                  ...styles.homeSpecialText,
+                  textAlign: "center",
+                }}
+                onPress={logout}
+              >
+                Logout
+              </Text>
             </View>
           </View>
         )}

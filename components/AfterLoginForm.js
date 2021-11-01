@@ -9,13 +9,39 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default AfterLoginForm = (props) => {
   const [loading, setLoading] = useState(false);
-  const [q1, setQ1] = useState(null);
-  const [q2, setQ2] = useState(null);
-  const [q3, setQ3] = useState(null);
   const [seconds, setSeconds] = useState("--");
-
   const [alreadySent, setAlreadySent] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const device = Device.brand + ", " + Device.modelName + ", " + Device.osName;
+  const payload = props.route.params.payload;
+  const trustedLocation = payload.hasOwnProperty("trusted_location")
+    ? payload.trusted_location
+    : null;
+  const newLocation = payload.hasOwnProperty("new_location")
+    ? payload.new_location
+    : null;
+  const backError = payload.hasOwnProperty("error") ? payload.error : "";
+  const base32secret = payload.hasOwnProperty("base32secret")
+    ? payload.base32secret
+    : null;
+
+  let result;
+  if (trustedLocation !== null && trustedLocation) {
+    result = "TRUSTED_LOCATION";
+  } else if (newLocation) {
+    if (base32secret) {
+      result = "SUCCESS_REGISTRATION";
+    } else {
+      result = "NEW_LOCATION";
+    }
+  } else {
+    result = "NO_TRUST_LOC " + backError;
+  }
+
+  const [q1, setQ1] = useState(result === "SUCCESS_REGISTRATION" ? true : null);
+  const [q2, setQ2] = useState(null);
+  const [q3, setQ3] = useState(null);
 
   useEffect(() => {
     let timer = 61;
@@ -38,32 +64,6 @@ export default AfterLoginForm = (props) => {
   const sendFeedback = async () => {
     setLoading(true);
     const netType = (await Network.getNetworkStateAsync()).type;
-    const device =
-      Device.brand + ", " + Device.modelName + ", " + Device.osName;
-    const payload = props.route.params.payload;
-    const trustedLocation = payload.hasOwnProperty("trusted_location")
-      ? payload.trusted_location
-      : null;
-    const newLocation = payload.hasOwnProperty("new_location")
-      ? payload.new_location
-      : null;
-    const backError = payload.hasOwnProperty("error") ? payload.error : "";
-    const base32secret = payload.hasOwnProperty("base32secret")
-      ? payload.base32secret
-      : null;
-
-    let result;
-    if (trustedLocation !== null && trustedLocation) {
-      result = "TRUSTED_LOCATION";
-    } else if (newLocation) {
-      if (base32secret) {
-        result = "SUCCESS_REGISTRATION";
-      } else {
-        result = "NEW_LOCATION";
-      }
-    } else {
-      result = "NO_TRUST_LOC " + backError;
-    }
 
     const body = {
       network_type: netType,
@@ -144,12 +144,19 @@ export default AfterLoginForm = (props) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardTitleContainer}>
-        <Text style={styles.cardTitle}>Formulario de login:</Text>
+        <Text style={{ ...styles.cardTitle, ...styles.normalText }}>
+          Formulario de login:
+        </Text>
         <Text style={styles.timer}>{seconds} s</Text>
       </View>
       <Text>
-        Contesta este formulario para tener más logins registrados y{" "}
-        <Text style={styles.headerSpecialText}>+ oportunidad de ganar</Text>.
+        Contesta este formulario para tener{" "}
+        <Text style={{ ...styles.headerSpecialText, ...styles.important }}>
+          más oportunidades de ganar
+        </Text>
+        .
+      </Text>
+      <Text style={styles.smallMarginTop}>
         Apóyate del mapa de tus
         <Icons.LocationMarkerIcon
           style={styles.pinIcon}
@@ -158,23 +165,49 @@ export default AfterLoginForm = (props) => {
         />
         confiables.
       </Text>
-      <View style={{ ...styles.questionRow, ...styles.mediumPaddingTop }}>
-        <Text style={styles.question}>
-          1. ¿Estás en un lugar previamente registrado? (casa, trabajo)
-        </Text>
-        <YesNoInput yesNoValue={q1} updateValue={setQ1}></YesNoInput>
-      </View>
-      <View style={{ ...styles.questionRow, ...styles.mediumPaddingTop }}>
-        <Text style={styles.question}>
-          2. ¿Estás en un edificio, entre edificios o en un sótano?
-        </Text>
-        <YesNoInput yesNoValue={q2} updateValue={setQ2}></YesNoInput>
-      </View>
-      <View style={{ ...styles.questionRow, ...styles.mediumPaddingTop }}>
-        <Text style={styles.question}>
-          3. ¿Estás en un vehículo o transporte en movimiento?
-        </Text>
-        <YesNoInput yesNoValue={q3} updateValue={setQ3}></YesNoInput>
+      <View style={styles.smallMarginTop}>
+        {result !== "SUCCESS_REGISTRATION" && (
+          <View
+            style={{
+              ...styles.questionRow,
+              ...styles.mediumPaddingTop,
+              ...styles.reward,
+            }}
+          >
+            <Text style={styles.question}>
+              {result === "TRUSTED_LOCATION"
+                ? "El sistema detectó que estás en una ubicación confiable (casa, trabajo), ¿Es correcto?"
+                : result === "NEW_LOCATION"
+                ? "El sistema detectó y guardó esta como una ubicación nueva, ¿Si estas en una ubicación nueva?"
+                : "El sistema no pudo iniciar sesión usando tu ubicación, ¿Estás en una ubicación confiable?"}
+            </Text>
+            <YesNoInput yesNoValue={q1} updateValue={setQ1}></YesNoInput>
+          </View>
+        )}
+        <View
+          style={{
+            ...styles.questionRow,
+            ...styles.mediumPaddingTop,
+            ...styles.reward,
+          }}
+        >
+          <Text style={styles.question}>
+            ¿Estás en un edificio, entre edificios o en un sótano?
+          </Text>
+          <YesNoInput yesNoValue={q2} updateValue={setQ2}></YesNoInput>
+        </View>
+        <View
+          style={{
+            ...styles.questionRow,
+            ...styles.mediumPaddingTop,
+            ...styles.reward,
+          }}
+        >
+          <Text style={styles.question}>
+            ¿Estás en un vehículo o transporte en movimiento?
+          </Text>
+          <YesNoInput yesNoValue={q3} updateValue={setQ3}></YesNoInput>
+        </View>
       </View>
 
       {loading ? (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import JWT from "expo-jwt";
 import {
   View,
@@ -16,11 +16,18 @@ import { SECRET_KEY } from "../utils/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default LoginPage = ({ navigation, location, locations }) => {
-  const [email, setEmail] = useState("alberto@gmail.com");
-  const [password, setPassword] = useState("abc123A*");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(async () => {
+    const storedEmail = await AsyncStorage.getItem("email_address");
+    if (storedEmail && storedEmail !== "") {
+      setEmail(storedEmail);
+    }
+  }, []);
 
   const login = () => {
     if (loading) return;

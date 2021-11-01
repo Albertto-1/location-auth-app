@@ -18,10 +18,10 @@ const passwordInstructions =
   "La contraseña debe tener mínimo: una minúscula, una mayúscula, un número, un caracter expecial (?, *, @, #...) y 8 caracteres de longitud.";
 
 export default RegistrationPage = ({ navigation, locations }) => {
-  const [name, setName] = useState("Alberto");
-  const [email, setEmail] = useState("alberto@gmail.com");
-  const [password, setPassword] = useState("abc123A*");
-  const [password2, setPassword2] = useState("abc123A*");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [referedBy, setReferedBy] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -83,6 +83,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
           if (json.access_token) {
             try {
               setLoading(false);
+              await AsyncStorage.setItem("email_address", email);
               await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.pop();

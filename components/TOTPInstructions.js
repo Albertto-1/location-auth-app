@@ -8,6 +8,12 @@ import { showError } from "../utils/toast";
 export default TOTPInstructions = ({ totpSecret }) => {
   return (
     <View>
+      <Text style={{ ...styles.headerText, ...styles.instructions }}>
+        TOTP es el método de respaldo por si no puedes iniciar sesión con tu
+        ubicación. Es importante que configures tu TOTP para que no pierdas
+        acceso a tu cuenta y con ello la posibilidad de seguir sumando logins
+        para ganarte un premio.
+      </Text>
       <Text style={styles.loginTitle}>
         Guarda tu TOTP en Google Authenticator:
       </Text>

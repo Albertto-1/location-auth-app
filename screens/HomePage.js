@@ -61,7 +61,7 @@ export default HomePage = ({ navigation, route }) => {
     } else if (newLocation) {
       if (base32secret) {
         message =
-          "Se guardó tu primera ubicación confiable con éxito. Podrás iniciar sesión rápido siempre que estés en este lugar (casa, oficina).";
+          "Se guardó tu primera ubicación confiable con éxito. Podrás iniciar sesión rápidamente siempre que estés en este lugar (casa, oficina).";
       } else {
         message =
           "¡Listo! Ya no te volveremos a pedir código cuando estés en esta ubicación. Estás en un lugar nuevo (casa, oficina...)? o fue error del sistema?";
@@ -115,7 +115,7 @@ export default HomePage = ({ navigation, route }) => {
           </View>
         )}
         <View style={styles.card}>
-          <Text>{message}</Text>
+          <Text style={{ color: "grey" }}>{message}</Text>
         </View>
       </>
     );
@@ -193,6 +193,33 @@ export default HomePage = ({ navigation, route }) => {
                 </View>
               </>
             )}
+            <View style={{ ...styles.card, ...styles.mediumMarginTop }}>
+              <Text>
+                Revisa las{" "}
+                <Text
+                  style={styles.homeSpecialText}
+                  onPress={() => {
+                    navigation.navigate("Instructions");
+                  }}
+                >
+                  instrucciones del concurso {" ->"}
+                </Text>
+              </Text>
+              <Text style={styles.mediumMarginTop}>
+                Revisa las{" "}
+                <Text
+                  style={styles.homeSpecialText}
+                  onPress={() => {
+                    navigation.navigate("Instructions", {
+                      whichOne: "totp",
+                      code: userInfo.totp_secret || "null",
+                    });
+                  }}
+                >
+                  instrucciones de TOTP {" ->"}
+                </Text>
+              </Text>
+            </View>
           </View>
         )}
       </ScrollView>

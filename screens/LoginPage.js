@@ -144,7 +144,10 @@ export default LoginPage = ({ navigation, location, locations }) => {
                 <Text
                   style={styles.registerSpan}
                   onPress={() => {
-                    navigation.navigate("Registration");
+                    navigation.navigate("Instructions", {
+                      whichOne: "general",
+                      doShowRegistration: true,
+                    });
                   }}
                 >
                   Regístrate

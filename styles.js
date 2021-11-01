@@ -117,6 +117,7 @@ export default styles = StyleSheet.create({
   },
   homeSpecialText: {
     fontWeight: "bold",
+    color: "black",
   },
   smallMarginTop: {
     marginTop: 4,
@@ -250,5 +251,17 @@ export default styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 20,
     padding: 8,
+  },
+  reward: {
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
+    paddingLeft: 16,
+    paddingTop: 6,
+    paddingBottom: 6,
+  },
+  money: {
+    fontWeight: "bold",
+    color: "green",
   },
 });

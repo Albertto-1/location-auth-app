@@ -4,18 +4,20 @@ import About from "../components/About";
 import TOTPInstructions from "../components/TOTPInstructions";
 import styles from "../styles";
 
-export default InstructionsPage = ({ route }) => {
-  const whichOne = route.params.whichOne;
-  const code = route.params.code;
+export default InstructionsPage = (props) => {
+  let whichOne = "";
+  if (props.route && props.route.params) {
+    whichOne = props.route.params.whichOne;
+  }
 
   return (
     <SafeAreaView>
       <ScrollView>
         <View style={styles.loginContainer}>
           {whichOne === "totp" ? (
-            <TOTPInstructions totpSecret={code} />
+            <TOTPInstructions {...props} totpSecret={props.route.params.code} />
           ) : (
-            <About />
+            <About {...props} />
           )}
         </View>
       </ScrollView>

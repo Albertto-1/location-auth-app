@@ -9,7 +9,6 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import Instructions from "../components/Instructions";
 import styles from "../styles";
 import { showError } from "../utils/toast";
 import { SECRET_KEY } from "../utils/config";
@@ -85,6 +84,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
               setLoading(false);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.pop();
+              navigation.pop();
               navigation.replace("Home", {
                 payload: payload,
                 location: { ...locations.pop() },
@@ -113,7 +113,6 @@ export default RegistrationPage = ({ navigation, locations }) => {
     <SafeAreaView>
       <ScrollView>
         <View style={styles.loginContainer}>
-          <Instructions />
           <Text style={styles.loginTitle}>Regístrate para participar</Text>
           <View style={styles.formGroup}>
             <View style={styles.formGroup}>
@@ -123,7 +122,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
                   if (value !== "") {
                     setError("");
                   } else {
-                    setError("Invalid password");
+                    setError("Ingresa un nombre");
                   }
                   setName(value);
                 }}
@@ -144,12 +143,16 @@ export default RegistrationPage = ({ navigation, locations }) => {
                   if (value !== "") {
                     setError("");
                   } else {
-                    setError("Invalid password");
+                    setError("Ingresa un email válido");
                   }
                   setEmail(value);
                 }}
                 value={email}
-                style={error && email === "" ? styles.inputError : styles.input}
+                style={
+                  (error && email === "") || error.includes("registrado")
+                    ? styles.inputError
+                    : styles.input
+                }
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onSubmitEditing={() => {
@@ -168,7 +171,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
                   if (passwordIsValid(value)) {
                     setError("");
                   } else {
-                    setError("Invalid password");
+                    setError("Error en la contraseña");
                   }
                   setPassword(value);
                 }}
@@ -195,7 +198,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
                   if (passwordIsValid(value)) {
                     setError("");
                   } else {
-                    setError("Invalid password");
+                    setError("Las contraseñas no coinciden");
                   }
                   setPassword2(value);
                 }}

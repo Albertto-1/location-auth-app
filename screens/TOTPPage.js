@@ -54,7 +54,7 @@ export default TOTPPage = ({ navigation, route, locations }) => {
           if (json.access_token) {
             try {
               setLoading(false);
-              AsyncStorage.setItem("access_token", json.access_token);
+              await AsyncStorage.setItem("access_token", json.access_token);
               const newPayload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.replace("Home", {
                 payload: newPayload,

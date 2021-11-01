@@ -53,7 +53,7 @@ export default LoginPage = ({ navigation, location, locations }) => {
           if (json.access_token) {
             try {
               setLoading(false);
-              AsyncStorage.setItem("access_token", json.access_token);
+              await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               if (payload.trusted_location) {
                 navigation.replace("Home", {

@@ -10,9 +10,6 @@ export default HomePage = ({ navigation, route }) => {
   const [userInfo, setUserInfo] = useState({});
   const [payload, setPayload] = useState(false);
   const [location, setLocation] = useState({});
-  const [loading, setLoading] = useState(false);
-
-  const [alreadySent, setAlreadySent] = useState(false);
 
   useEffect(async () => {
     const access_token = await AsyncStorage.getItem("access_token");
@@ -30,12 +27,11 @@ export default HomePage = ({ navigation, route }) => {
         if (json.id) {
           setUserInfo(json);
         } else {
-          showError(json.detail);
+          console.log(json);
+          // showError(json.detail);
         }
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
         console.log(err);
       });
     setPayload(route.params.payload);
@@ -132,10 +128,7 @@ export default HomePage = ({ navigation, route }) => {
 
             {getGreetings()}
 
-            <AfterLoginForm
-              alreadySent={alreadySent}
-              setAlreadySent={setAlreadySent}
-            />
+            <AfterLoginForm navigation={navigation} route={route} />
 
             {location !== null && (
               <>

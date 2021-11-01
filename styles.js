@@ -264,4 +264,17 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
     color: "green",
   },
+  timer: {
+    fontWeight: "bold",
+  },
+  cardTitle: {
+    fontSize: 16,
+  },
+  cardTitleContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
 });

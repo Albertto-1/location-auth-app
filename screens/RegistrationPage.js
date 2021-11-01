@@ -12,6 +12,7 @@ import {
 import styles from "../styles";
 import { showError } from "../utils/toast";
 import { SECRET_KEY } from "../utils/config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const passwordInstructions =
   "La contraseña debe tener mínimo: una minúscula, una mayúscula, un número, un caracter expecial (?, *, @, #...) y 8 caracteres de longitud.";
@@ -78,16 +79,18 @@ export default RegistrationPage = ({ navigation, locations }) => {
         }),
       })
         .then((response) => response.json())
-        .then((json) => {
+        .then(async (json) => {
           if (json.access_token) {
             try {
               setLoading(false);
+              await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.pop();
               navigation.pop();
               navigation.replace("Home", {
                 payload: payload,
                 location: { ...locations.pop() },
+                locations: locations,
               });
             } catch (err) {
               console.log(err);

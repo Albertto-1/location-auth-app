@@ -59,6 +59,7 @@ export default LoginPage = ({ navigation, location, locations }) => {
                 navigation.replace("Home", {
                   payload: payload,
                   location: { ...location },
+                  locations: [...locations],
                 });
               } else {
                 navigation.navigate("TOTP", { payload: payload });

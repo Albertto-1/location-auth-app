@@ -111,10 +111,24 @@ export default HomePage = ({ navigation, route }) => {
           </View>
         )}
         <View style={styles.card}>
+          <Text
+            style={{
+              ...styles.headerSpecialText,
+            }}
+          >
+            Login info:
+          </Text>
           <Text style={{ color: "grey" }}>{message}</Text>
         </View>
       </>
     );
+  };
+
+  const logout = async () => {
+    await AsyncStorage.removeItem("access_token", (err) => {
+      console.log(err);
+    });
+    navigation.replace("Login");
   };
 
   return (
@@ -128,7 +142,11 @@ export default HomePage = ({ navigation, route }) => {
 
             {getGreetings()}
 
-            <AfterLoginForm navigation={navigation} route={route} />
+            <AfterLoginForm
+              navigation={navigation}
+              route={route}
+              logout={logout}
+            />
 
             {location !== null && (
               <>

@@ -51,12 +51,6 @@ export default About = ({ navigation, route }) => {
       </Text>
       <Text style={{ ...styles.headerText, ...styles.mediumMarginTop }}>
         El concurso comienza el día miércoles 3 de noviembre y termina el día
-        miércoles 24 de noviembre. Los premios se pagarán el sábado 4 de
-        diciembre del 2021. Cualquier premio puede cancelarse si tu dispositivo
-        tiene location mock activado.
-      </Text>
-      <Text style={{ ...styles.headerText, ...styles.mediumMarginTop }}>
-        El concurso comienza el día miércoles 3 de noviembre y termina el día
         miércoles 24 de noviembre. Los resultados se darán a conocer el día
         sábado 4 de diciembre del 2021. Cualquier premio puede cancelarse si tu
         dispositivo tiene location mock activado.

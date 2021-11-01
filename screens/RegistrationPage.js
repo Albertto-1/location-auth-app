@@ -148,9 +148,11 @@ export default RegistrationPage = ({ navigation, locations }) => {
                   } else {
                     setError("Ingresa un email válido");
                   }
-                  setEmail(value);
+                  setEmail(value.toLowerCase());
                 }}
                 value={email}
+                autoComplete="email"
+                keyboardType="email-address"
                 style={
                   (error && email === "") || error.includes("registrado")
                     ? styles.inputError

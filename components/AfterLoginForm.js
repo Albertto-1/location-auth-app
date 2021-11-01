@@ -120,6 +120,9 @@ export default AfterLoginForm = (props) => {
           Gracias por tu apoyo. Haz logout y login de nuevo para poder contestar
           más veces.
         </Text>
+        <TouchableOpacity style={styles.formButton} onPress={props.logout}>
+          <Text style={styles.loginButtonText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -128,8 +131,12 @@ export default AfterLoginForm = (props) => {
       <View style={styles.card}>
         <Text>
           Recuerda contestar el formulario justo después de iniciar sesión. Si
-          no contestas el formulario tus logins no valen.
+          no contestas el formulario tus logins no valen. Haz logout y login de
+          nuevo para poder contestar más veces.
         </Text>
+        <TouchableOpacity style={styles.formButton} onPress={props.logout}>
+          <Text style={styles.loginButtonText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -59,6 +59,7 @@ export default TOTPPage = ({ navigation, route, locations }) => {
               navigation.replace("Home", {
                 payload: newPayload,
                 location: { ...locations.pop() },
+                locations: [...locations],
               });
             } catch (err) {
               setError(err);

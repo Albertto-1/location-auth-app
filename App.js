@@ -9,6 +9,8 @@ import HomePage from "./screens/HomePage";
 import TOTPPage from "./screens/TOTPPage";
 import ApplicationHeader from "./components/ApplicationHeader";
 import InstructionsPage from "./screens/InstructionsPage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +27,8 @@ const headerExtraOptions = {
 export default function App() {
   const [location, setLocation] = useState(null);
   const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [initialRoute, setInitialRoute] = useState("Instructions");
 
   useEffect(async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -33,7 +37,6 @@ export default function App() {
       return;
     }
 
-    let isMounted = true;
     let locs = [];
 
     const positionWatcher = Location.watchPositionAsync(
@@ -43,7 +46,7 @@ export default function App() {
         distanceInterval: 0,
       },
       (newLoc) => {
-        if (newLoc !== null && isMounted && newLoc.coords.accuracy < 50) {
+        if (newLoc !== null && newLoc.coords.accuracy < 50) {
           locs.push(newLoc);
           if (locs.length > 10) {
             locs = locs.slice(locs.length - 10);
@@ -53,15 +56,24 @@ export default function App() {
         }
       }
     );
+
+    // await AsyncStorage.setItem("email_address", "alberttomarvel@gmail.com");
+    // await AsyncStorage.removeItem("email_address");
+    if ((await AsyncStorage.getItem("email_address")) !== null) {
+      setInitialRoute("Login");
+    }
+    setLoading(false);
+
     return () => {
-      isMounted = false;
       positionWatcher.remove();
     };
   }, []);
 
+  if (loading) return <Text>Cargando...</Text>;
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName={initialRoute}>
         <Stack.Screen
           name="Login"
           options={{
@@ -113,7 +125,7 @@ export default function App() {
             animation: "slide_from_right",
           }}
         >
-          {(props) => <InstructionsPage {...props} />}
+          {(props) => <InstructionsPage {...props} doShowRegistration />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

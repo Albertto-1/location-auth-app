@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, Linking } from "react-native";
 import styles from "../styles";
 
-export default About = ({ navigation, route }) => {
+export default About = ({ navigation, route, doShowRegistration }) => {
   return (
     <View>
       <Text style={{ ...styles.loginTitle, ...styles.headerSpecialText }}>
@@ -66,7 +66,8 @@ export default About = ({ navigation, route }) => {
           albertomartinvelez@gmail.com
         </Text>
       </Text>
-      {route.params && route.params.doShowRegistration && (
+      {((route.params && route.params.doShowRegistration) ||
+        doShowRegistration) && (
         <TouchableOpacity
           style={{ ...styles.loginButton, ...styles.mediumMarginTop }}
           onPress={() => {

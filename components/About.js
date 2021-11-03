@@ -96,7 +96,9 @@ export default About = ({ navigation, route, doShowRegistration }) => {
         </Text>
       </Text>
       <Text style={{ marginTop: 8 }}>
-        Se cancelará tu premio(s) si tu dispositivo tiene hackeada la ubicación.
+        Se cancelará tu premio(s) si tu dispositivo tiene hackeada la ubicación
+        o si no contestas la encuesta final (que se enviará a tu email el día 24
+        de noviembre) antes del 28 de noviembre.
       </Text>
 
       <Text style={{ marginTop: 20, padding: 0, height: 24 }}>

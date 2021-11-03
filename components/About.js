@@ -48,8 +48,7 @@ export default About = ({ navigation, route, doShowRegistration }) => {
         Concurso
       </Text>
       <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
-        Para hacer esto más divertido y emocionante, habrá un concurso en el que
-        daré{" "}
+        Para hacer esto más divertido y emocionante, habrá un concurso con{" "}
         <Text style={{ ...styles.homeSpecialText, ...styles.money }}>
           3 premios.
         </Text>

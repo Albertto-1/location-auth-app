@@ -58,7 +58,7 @@ export default function App() {
     );
 
     // await AsyncStorage.setItem("email_address", "alberttomarvel@gmail.com");
-    // await AsyncStorage.removeItem("email_address");
+    await AsyncStorage.removeItem("email_address");
     if ((await AsyncStorage.getItem("email_address")) !== null) {
       setInitialRoute("Login");
     }

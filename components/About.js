@@ -9,53 +9,115 @@ export default About = ({ navigation, route, doShowRegistration }) => {
         Location Auth
       </Text>
       <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
-        Es un prototipo de un sistema de autenticación multifactor que utiliza
-        credenciales (email y contraseña) como primer factor, la ubicación del
-        usuario como segundo factor y TOTP como factor de respaldo.
-      </Text>
-      <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
-        En cada inicio de sesión, además de validar tu email y contraseña, se
-        comparará tu ubicación contra un grupo de ubicaciones en las que
-        confías. Si estás en una ubicación confiable, podrás iniciar sesión
-        utilizando tu ubicación, si no, tendrás que usar una TOTP. Al iniciar
-        sesión con este segundo método, tu ubicación se guardará como confiable
-        y podrás iniciar sesión de forma más rápida la siguiente vez que entres
-        a la plataforma en esa ubicación.
-      </Text>
-      <Text style={{ ...styles.loginTitle, ...styles.important }}>Premios</Text>
-      <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
-        Se darán tres premios con valor equivalente de{" "}
-        <Text style={styles.money}>$1,000</Text> (mil pesos) por premio. Los
-        premios se le darán a los usuarios que cumplan con lo siguiente:
+        Location-Auth es un prototipo de un sistema de autenticación multifactor
+        que usa tu ubicación para validar y agilizar tu inicio de sesión.
       </Text>
       <Text style={{ ...styles.reward, ...styles.smallMarginTop }}>
-        <Text style={styles.homeSpecialText}>
-          Usuario con mayor número de ubicaciones confiables.{" "}
+        <Text style={styles.homeSpecialText}>1. </Text>
+        Regístrate
+      </Text>
+      <Text style={{ ...styles.reward }}>
+        <Text style={styles.homeSpecialText}>2. </Text>
+        Contesta el formulario que aparece
+      </Text>
+      <Text style={{ ...styles.reward }}>
+        <Text style={styles.homeSpecialText}>3. </Text>
+        Cierra sesión
+      </Text>
+      <Text style={{ ...styles.reward }}>
+        <Text style={styles.homeSpecialText}>4. </Text>
+        Muévete a otra habitación de tu casa o del lugar en el que estés
+      </Text>
+      <Text style={{ ...styles.reward }}>
+        <Text style={styles.homeSpecialText}>5. </Text>
+        Iniciar sesión y vuelve a contestar el formulario
+      </Text>
+      <Text style={{ ...styles.reward }}>
+        <Text style={styles.homeSpecialText}>5. </Text>
+        Repite los pasos 4 y 5 la mayor cantidad de veces que puedas y en
+        diferentes ubicaciones (casa, trabajo)
+      </Text>
+
+      <Text
+        style={{
+          ...styles.loginTitle,
+          ...styles.important,
+          marginTop: 36,
+        }}
+      >
+        Concurso
+      </Text>
+      <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
+        Para hacer esto más divertido y emocionante, habrá un concurso en el que
+        daré{" "}
+        <Text style={{ ...styles.homeSpecialText, ...styles.money }}>
+          3 premios.
         </Text>
-        Se logra iniciando sesión en distintos lugares (casa, oficina).
+        {"\n"}
+        Para ganarte uno o varios de esos premios tienes que ser el usuario
+        con...
+      </Text>
+
+      <Text style={{ ...styles.reward, ...styles.smallMarginTop }}>
+        <Text style={styles.homeSpecialText}>
+          ...más ubicaciones confiables. (1){"\n"}
+        </Text>
+        Inicia sesión en distintos lugares (casa, oficina).
       </Text>
       <Text style={styles.reward}>
-        <Text style={styles.homeSpecialText}>
-          Usuario con mayor número de logins.{" "}
-        </Text>
-        Se logra iniciando sesión y contestando el formulario que aparece (si no
-        se contesta el formulario el login no cuenta).
+        <Text style={styles.homeSpecialText}>...más referidos. (2){"\n"}</Text>
+        Haz que tus amigos con Android se registren poniendo tu email en el
+        campo de "Referido por (email)" y contesten mínimo 10 veces el
+        formulario. Si tienes iOS puedes participar refiriendo.
       </Text>
       <Text style={styles.reward}>
-        <Text style={styles.homeSpecialText}>
-          Usuario con mayor número de referidos.{" "}
+        <Text style={styles.homeSpecialText}>...más logins. (3){"\n"}</Text>
+        Contesta el formulario que aparece después de cada inicio de sesión.
+      </Text>
+
+      <Text style={{ marginTop: 22, padding: 0 }}>
+        El premio (1) y (2) es un{" "}
+        <Text
+          style={{
+            ...styles.homeSpecialText,
+            ...styles.important,
+          }}
+        >
+          Amazon Echo Dot (4ta Gen)
+        </Text>{" "}
+        o una tarjeta de regalo de Amazon con{" "}
+        <Text style={{ ...styles.homeSpecialText, ...styles.money }}>
+          $1,000 MXN.
         </Text>
-        Se logra haciendo que tus amigos con Android se registren poniendo tu
-        email en el campo de "Referido por" y tengan mínimo 5 inicios de sesión
-        con formulario registrado. Si tienes iOS puedes participar refiriendo.
       </Text>
-      <Text style={{ ...styles.headerText, ...styles.mediumMarginTop }}>
-        El concurso comienza el día miércoles 3 de noviembre y termina el día
-        miércoles 24 de noviembre. Los resultados se darán a conocer el día
-        sábado 4 de diciembre del 2021. Cualquier premio puede cancelarse si tu
-        dispositivo tiene location mock activado.
+      <Text style={{ marginTop: 8 }}>
+        El premio (3) es una tarjeta de regalo de Amazon con{" "}
+        <Text style={{ ...styles.homeSpecialText, ...styles.money }}>
+          $600 MXN.
+        </Text>
       </Text>
-      <Text style={{ ...styles.headerText, ...styles.mediumMarginTop }}>
+      <Text style={{ marginTop: 8 }}>
+        Se cancelará tu premio(s) si tu dispositivo tiene hackeada la ubicación.
+      </Text>
+
+      <Text style={{ marginTop: 20, padding: 0, height: 24 }}>
+        <Text style={styles.homeSpecialText}>Inicio:{"              "}</Text>
+        03 de noviembre
+      </Text>
+      <Text style={{ marginTop: 4, padding: 0, height: 24 }}>
+        <Text style={styles.homeSpecialText}>Fin:{"                  "}</Text>
+        24 de noviembre
+      </Text>
+      <Text style={{ marginTop: 4, padding: 0, height: 24 }}>
+        <Text style={styles.homeSpecialText}>Resultados:{"   "}</Text>
+        27 de noviembre
+      </Text>
+      <Text
+        style={{
+          ...styles.headerText,
+          ...styles.mediumMarginTop,
+        }}
+      >
         Email de contacto:{" "}
         <Text
           style={styles.homeSpecialText}
@@ -69,7 +131,11 @@ export default About = ({ navigation, route, doShowRegistration }) => {
       {((route.params && route.params.doShowRegistration) ||
         doShowRegistration) && (
         <TouchableOpacity
-          style={{ ...styles.loginButton, ...styles.mediumMarginTop }}
+          style={{
+            ...styles.loginButton,
+            marginTop: 30,
+            marginBottom: 10,
+          }}
           onPress={() => {
             navigation.navigate("Registration");
           }}

@@ -204,7 +204,7 @@ export default HomePage = ({ navigation, route }) => {
                 </View>
               </>
             )}
-            <View style={{ ...styles.card, ...styles.mediumMarginTop }}>
+            <View style={{ ...styles.card }}>
               <Text>
                 Revisa las{" "}
                 <Text

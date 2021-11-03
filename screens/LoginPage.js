@@ -60,6 +60,7 @@ export default LoginPage = ({ navigation, location, locations }) => {
           if (json.access_token) {
             try {
               setLoading(false);
+              await AsyncStorage.setItem("email_address", email);
               await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               if (payload.trusted_location) {
@@ -93,13 +94,6 @@ export default LoginPage = ({ navigation, location, locations }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "white" }}>
         <View style={styles.loginContainer}>
-          <Text style={styles.headerText}>
-            Bienvenido a{" "}
-            <Text style={styles.headerSpecialText}>Location Auth</Text>, un
-            sistema de autenticación multifactor que usa tu ubicación como uno
-            de los factores para una autenticación más segura y sin tantos
-            pasos.
-          </Text>
           <Text style={styles.loginTitle}>Inicia sesión</Text>
           <View style={styles.formGroup}>
             <View style={styles.formGroup}>
@@ -152,10 +146,7 @@ export default LoginPage = ({ navigation, location, locations }) => {
                 <Text
                   style={styles.registerSpan}
                   onPress={() => {
-                    navigation.navigate("Instructions", {
-                      whichOne: "general",
-                      doShowRegistration: true,
-                    });
+                    navigation.navigate("Registration");
                   }}
                 >
                   Regístrate
@@ -163,31 +154,6 @@ export default LoginPage = ({ navigation, location, locations }) => {
               </Text>
             </View>
           </View>
-          {location !== null && (
-            <View style={styles.loginMap}>
-              <MapView
-                style={styles.map}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                rotateEnabled={false}
-                pitchEnabled={false}
-                showsScale={true}
-                minZoomLevel={4}
-                maxZoomLevel={20}
-                initialCamera={{
-                  center: {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                  },
-                  pitch: 0,
-                  zoom: 16,
-                  heading: 0,
-                  altitude: 0,
-                }}
-                mapType="standard"
-              />
-            </View>
-          )}
         </View>
       </ScrollView>
     </SafeAreaView>

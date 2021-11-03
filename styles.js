@@ -34,7 +34,7 @@ export default styles = StyleSheet.create({
     height: 270,
     borderRadius: 20,
     overflow: "hidden",
-    elevation: 6,
+    elevation: 8,
     shadowColor: "#52006A",
   },
   headerSpecialText: {
@@ -59,6 +59,7 @@ export default styles = StyleSheet.create({
     padding: 8,
     paddingTop: 6,
     paddingBottom: 6,
+    marginTop: 4,
   },
   inputError: {
     borderStyle: "solid",
@@ -69,21 +70,24 @@ export default styles = StyleSheet.create({
     padding: 8,
     paddingTop: 6,
     paddingBottom: 6,
+    marginTop: 4,
   },
   formGroup: {
-    marginTop: 6,
+    marginTop: 16,
   },
   loginButton: {
     padding: 11,
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 36,
+    // marginBottom: 14,
     backgroundColor: "#2196f3",
     borderRadius: 8,
   },
   loginButtonDisabled: {
     padding: 11,
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 36,
+    // marginBottom: 14,
     backgroundColor: "#dfdfdf",
     borderRadius: 8,
     display: "flex",
@@ -113,6 +117,7 @@ export default styles = StyleSheet.create({
   },
   homeTitle: {
     fontSize: 20,
+    marginTop: 6,
     textAlign: "center",
   },
   homeSpecialText: {
@@ -132,7 +137,7 @@ export default styles = StyleSheet.create({
     marginLeft: 6,
   },
   mapLegend: {
-    marginTop: 20,
+    marginTop: 30,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -145,11 +150,12 @@ export default styles = StyleSheet.create({
   },
   card: {
     padding: 17,
-    marginTop: 10,
+    marginTop: 20,
+    marginBottom: 10,
     backgroundColor: "white",
     borderRadius: 20,
     overflow: "hidden",
-    elevation: 6,
+    elevation: 8,
     shadowColor: "#52006A",
   },
   questionRow: {
@@ -215,9 +221,9 @@ export default styles = StyleSheet.create({
     borderRadius: 8,
   },
   formButtonDisabled: {
-    padding: 11,
+    padding: 7,
     textAlign: "center",
-    marginTop: 10,
+    marginTop: 18,
     backgroundColor: "#dfdfdf",
     borderRadius: 8,
     display: "flex",
@@ -258,8 +264,8 @@ export default styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "lightgray",
     paddingLeft: 16,
-    paddingTop: 6,
-    paddingBottom: 6,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   money: {
     fontWeight: "bold",

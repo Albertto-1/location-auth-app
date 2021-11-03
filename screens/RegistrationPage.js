@@ -87,7 +87,6 @@ export default RegistrationPage = ({ navigation, locations }) => {
               await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.pop();
-              navigation.pop();
               navigation.replace("Home", {
                 payload: payload,
                 location: { ...locations.pop() },
@@ -197,7 +196,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
               ></TextInput>
             </View>
             <View style={styles.formGroup}>
-              <Text>Repite la contraseña:</Text>
+              <Text>Repite tu contraseña:</Text>
               <TextInput
                 ref={password2InputRef}
                 onChangeText={(value) => {
@@ -224,7 +223,7 @@ export default RegistrationPage = ({ navigation, locations }) => {
               ></TextInput>
             </View>
             <View style={styles.formGroup}>
-              <Text>(Opcional) Referido por:</Text>
+              <Text>(Opcional) Referido por (email):</Text>
               <TextInput
                 ref={referedByInputRef}
                 onChangeText={(value) => {
@@ -232,6 +231,8 @@ export default RegistrationPage = ({ navigation, locations }) => {
                 }}
                 value={referedBy}
                 style={styles.input}
+                autoComplete="email"
+                keyboardType="email-address"
               ></TextInput>
             </View>
 
@@ -259,6 +260,20 @@ export default RegistrationPage = ({ navigation, locations }) => {
                 <Text style={styles.loginButtonText}>Registrarme</Text>
               </TouchableOpacity>
             )}
+            <View style={styles.noAccount}>
+              <Text style={styles.noAccount}>
+                ¿Ya tienes cuenta?,{" "}
+                <Text
+                  style={styles.registerSpan}
+                  onPress={() => {
+                    navigation.pop();
+                    navigation.replace("Login");
+                  }}
+                >
+                  Iniciar sesión
+                </Text>
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>

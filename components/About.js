@@ -120,7 +120,7 @@ export default About = ({ navigation, route, doShowRegistration }) => {
 
       <Text style={{ marginTop: 20, padding: 0, height: 24 }}>
         <Text style={styles.homeSpecialText}>Inicio:{"              "}</Text>
-        03 de noviembre
+        04 de noviembre
       </Text>
       <Text style={{ marginTop: 4, padding: 0, height: 24 }}>
         <Text style={styles.homeSpecialText}>Fin:{"                  "}</Text>

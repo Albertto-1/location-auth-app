@@ -20,7 +20,7 @@ export default About = ({ navigation, route, doShowRegistration }) => {
         style={{
           ...styles.loginTitle,
           ...styles.headerSpecialText,
-          ...styles.mediumMarginTop,
+          marginTop: 32,
         }}
       >
         Location Auth

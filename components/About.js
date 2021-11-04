@@ -5,7 +5,24 @@ import styles from "../styles";
 export default About = ({ navigation, route, doShowRegistration }) => {
   return (
     <View>
-      <Text style={{ ...styles.loginTitle, ...styles.headerSpecialText }}>
+      <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
+        ¿Ya tienes cuenta?{" "}
+        <Text
+          style={styles.headerSpecialText}
+          onPress={() => {
+            navigation.replace("Login");
+          }}
+        >
+          Inicia sesión
+        </Text>
+      </Text>
+      <Text
+        style={{
+          ...styles.loginTitle,
+          ...styles.headerSpecialText,
+          ...styles.mediumMarginTop,
+        }}
+      >
         Location Auth
       </Text>
       <Text style={{ ...styles.headerText, ...styles.mediumPaddingTop }}>
@@ -18,7 +35,7 @@ export default About = ({ navigation, route, doShowRegistration }) => {
       </Text>
       <Text style={{ ...styles.reward }}>
         <Text style={styles.homeSpecialText}>2. </Text>
-        Contesta el formulario que aparece
+        Contesta el formulario
       </Text>
       <Text style={{ ...styles.reward }}>
         <Text style={styles.homeSpecialText}>3. </Text>
@@ -30,7 +47,7 @@ export default About = ({ navigation, route, doShowRegistration }) => {
       </Text>
       <Text style={{ ...styles.reward }}>
         <Text style={styles.homeSpecialText}>5. </Text>
-        Iniciar sesión y vuelve a contestar el formulario
+        Inicia sesión y vuelve a contestar el formulario
       </Text>
       <Text style={{ ...styles.reward }}>
         <Text style={styles.homeSpecialText}>5. </Text>
@@ -53,7 +70,7 @@ export default About = ({ navigation, route, doShowRegistration }) => {
           3 premios.
         </Text>
         {"\n"}
-        Para ganarte uno o varios de esos premios tienes que ser el usuario
+        Para ganarte uno, o varios de esos premios, tienes que ser el usuario
         con...
       </Text>
 

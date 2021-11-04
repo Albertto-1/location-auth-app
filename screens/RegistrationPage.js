@@ -152,6 +152,8 @@ export default RegistrationPage = ({ navigation, locations }) => {
                 }}
                 value={email}
                 autoComplete="email"
+                autoCompleteType="email"
+                autoCapitalize="none"
                 keyboardType="email-address"
                 style={
                   (error && email === "") || error.includes("registrado")

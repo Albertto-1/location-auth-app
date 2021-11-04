@@ -106,6 +106,8 @@ export default LoginPage = ({ navigation, location, locations }) => {
                 value={email}
                 style={!error ? styles.input : styles.inputError}
                 autoComplete="email"
+                autoCompleteType="email"
+                autoCapitalize="none"
                 keyboardType="email-address"
               ></TextInput>
             </View>

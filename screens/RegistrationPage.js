@@ -234,6 +234,8 @@ export default RegistrationPage = ({ navigation, locations }) => {
                 value={referedBy}
                 style={styles.input}
                 autoComplete="email"
+                autoCompleteType="email"
+                autoCapitalize="none"
                 keyboardType="email-address"
               ></TextInput>
             </View>

@@ -63,7 +63,7 @@ export default LoginPage = ({ navigation, location, locations }) => {
               await AsyncStorage.setItem("email_address", email);
               await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
-              if (payload.trusted_location) {
+              if (payload.trusted_location && payload.active_account) {
                 navigation.replace("Home", {
                   payload: payload,
                   location: { ...location },

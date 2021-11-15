@@ -36,7 +36,11 @@ export default AfterLoginForm = (props) => {
       result = "NEW_LOCATION";
     }
   } else {
-    result = "NO_TRUST_LOC " + backError;
+    if (base32secret) {
+      result = "SUCCESS_REGISTRATION";
+    } else {
+      result = "NO_TRUST_LOC " + backError;
+    }
   }
 
   const [q1, setQ1] = useState(result === "SUCCESS_REGISTRATION" ? true : null);

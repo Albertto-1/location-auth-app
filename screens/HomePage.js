@@ -63,64 +63,24 @@ export default HomePage = ({ navigation, route }) => {
           "¡Listo! Ya no te volveremos a pedir código cuando estés en esta ubicación. Estás en un lugar nuevo (casa, oficina...)? o fue error del sistema?";
       }
     } else {
-      message = "No logramos guardar tu ubicación. " + backError;
+      if (base32secret) {
+        message = "Bienvenido a Location Auth";
+      } else {
+        message = "No logramos guardar tu ubicación. " + backError;
+      }
     }
 
-    const goToTOTPInstructions = () => {
-      navigation.navigate("Instructions", {
-        whichOne: "totp",
-        code: payload.hasOwnProperty("base32secret")
-          ? payload.base32secret
-          : userInfo.totp_secret,
-      });
-    };
-
     return (
-      <>
-        {base32secret && (
-          <View style={styles.card}>
-            <Text
-              style={{
-                ...styles.headerSpecialText,
-                ...styles.homeTitle,
-                ...styles.important,
-              }}
-            >
-              Importante:
-            </Text>
-            <Text
-              style={{
-                ...styles.headerSpecialText,
-                ...styles.homeTitle,
-                ...styles.important,
-                ...styles.smallerText,
-              }}
-            >
-              Esta tarjeta no se volverá a mostrar.
-            </Text>
-            <Text style={{ ...styles.homeTitle, ...styles.smallerText }}>
-              Sigue estas{" "}
-              <Text
-                style={{ ...styles.headerSpecialText }}
-                onPress={goToTOTPInstructions}
-              >
-                instrucciones {"->"}
-              </Text>{" "}
-              para configurar Google Authenticator.
-            </Text>
-          </View>
-        )}
-        <View style={styles.card}>
-          <Text
-            style={{
-              ...styles.headerSpecialText,
-            }}
-          >
-            Login info:
-          </Text>
-          <Text style={{ color: "grey" }}>{message}</Text>
-        </View>
-      </>
+      <View style={styles.card}>
+        <Text
+          style={{
+            ...styles.headerSpecialText,
+          }}
+        >
+          Login info:
+        </Text>
+        <Text style={{ color: "grey" }}>{message}</Text>
+      </View>
     );
   };
 

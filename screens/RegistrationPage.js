@@ -87,10 +87,8 @@ export default RegistrationPage = ({ navigation, locations }) => {
               await AsyncStorage.setItem("access_token", json.access_token);
               const payload = JWT.decode(json.access_token, SECRET_KEY);
               navigation.pop();
-              navigation.replace("Home", {
+              navigation.replace("TOTP", {
                 payload: payload,
-                location: { ...locations.pop() },
-                locations: locations,
               });
             } catch (err) {
               console.log(err);

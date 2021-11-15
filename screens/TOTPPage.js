@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import JWT from "expo-jwt";
 import {
   View,
@@ -13,6 +13,7 @@ import styles from "../styles";
 import { showError } from "../utils/toast";
 import { SECRET_KEY } from "../utils/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import TOTPInstructions from "../components/TOTPInstructions";
 
 export default TOTPPage = ({ navigation, route, locations }) => {
   const [totp, setTOTP] = useState("");
@@ -21,6 +22,8 @@ export default TOTPPage = ({ navigation, route, locations }) => {
   const [error, setError] = useState("");
 
   const payload = route.params.payload;
+
+  useEffect(() => {}, []);
 
   const login = async () => {
     if (loading) return;
@@ -83,17 +86,27 @@ export default TOTPPage = ({ navigation, route, locations }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ backgroundColor: "white" }}>
         <View style={styles.loginContainer}>
-          <Text style={styles.homeTitle}>
+          {payload.base32secret && (
+            <TOTPInstructions
+              totpSecret={payload.base32secret}
+              showExtra={false}
+            />
+          )}
+          <Text style={{ ...styles.loginTitle, marginTop: 40 }}>
             Ingresa la <Text style={styles.headerSpecialText}>TOTP</Text> para
             la cuenta <Text style={styles.homeSpecialText}>{payload.sub}</Text>
           </Text>
 
-          <Text style={{ ...styles.headerText, ...styles.mediumMarginTop }}>
-            Al parecer: {payload.error}
-          </Text>
-          <Text style={{ ...styles.headerText, ...styles.smallMarginTop }}>
-            Por esto no podemos contemplarla para el inicio de sesión.
-          </Text>
+          {payload.base32secret ? null : (
+            <>
+              <Text style={{ ...styles.headerText, ...styles.mediumMarginTop }}>
+                Al parecer: {payload.error}
+              </Text>
+              <Text style={{ ...styles.headerText, ...styles.smallMarginTop }}>
+                Por esto no podemos contemplarla para el inicio de sesión.
+              </Text>
+            </>
+          )}
 
           <Text style={styles.loginTitle}>TOTP:</Text>
           <View style={styles.formGroup}>

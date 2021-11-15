@@ -5,15 +5,17 @@ import * as Icons from "react-native-heroicons/solid";
 import * as Clipboard from "expo-clipboard";
 import { showError } from "../utils/toast";
 
-export default TOTPInstructions = ({ totpSecret }) => {
+export default TOTPInstructions = ({ totpSecret, showExtra = true }) => {
   return (
     <View>
-      <Text style={{ ...styles.headerText, ...styles.instructions }}>
-        TOTP es el método de respaldo por si no puedes iniciar sesión con tu
-        ubicación. Es importante que configures tu TOTP para que no pierdas
-        acceso a tu cuenta y con ello la posibilidad de seguir sumando logins
-        para ganarte un premio.
-      </Text>
+      {showExtra && (
+        <Text style={{ ...styles.headerText, ...styles.instructions }}>
+          TOTP es el método de respaldo por si no puedes iniciar sesión con tu
+          ubicación. Es importante que configures tu TOTP para que no pierdas
+          acceso a tu cuenta y con ello la posibilidad de seguir sumando logins
+          para ganarte un premio.
+        </Text>
+      )}
       <Text style={styles.loginTitle}>
         Guarda tu TOTP en Google Authenticator:
       </Text>
@@ -79,20 +81,22 @@ export default TOTPInstructions = ({ totpSecret }) => {
         </Text>{" "}
         Da clic en "FINALIZAR"
       </Text>
-      <Text
-        style={{
-          ...styles.headerText,
-          ...styles.instructions,
-          ...styles.mediumMarginTop,
-        }}
-      >
-        <Text style={{ ...styles.headerSpecialText, ...styles.important }}>
-          Nota:{" "}
-        </Text>{" "}
-        Cuando el sistema no pueda iniciar sesión usando tu ubicación te pedirá
-        tu código TOTP. Este lo puedes consultar en Google Authenticator bajo el
-        nombre que registraste en el paso #6.
-      </Text>
+      {showExtra && (
+        <Text
+          style={{
+            ...styles.headerText,
+            ...styles.instructions,
+            ...styles.mediumMarginTop,
+          }}
+        >
+          <Text style={{ ...styles.headerSpecialText, ...styles.important }}>
+            Nota:{" "}
+          </Text>{" "}
+          Cuando el sistema no pueda iniciar sesión usando tu ubicación te
+          pedirá tu código TOTP. Este lo puedes consultar en Google
+          Authenticator bajo el nombre que registraste en el paso #6.
+        </Text>
+      )}
     </View>
   );
 };
